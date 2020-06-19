@@ -1,4 +1,7 @@
-﻿using System;
+﻿// See: https://stackoverflow.com/questions/102567/how-to-shut-down-the-computer-from-c-sharp
+// See: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-exitwindowsex
+
+using System;
 using System.Runtime.InteropServices;
 
 internal class Reboot
