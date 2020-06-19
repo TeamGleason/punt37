@@ -23,7 +23,7 @@ namespace Punt37
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            ListenForPunt.Listen();
         }
 
         private void notifyIcon_Click(object sender, EventArgs e)
