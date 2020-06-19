@@ -11,6 +11,14 @@ use to speak or emulate a mouse has stopped working.
 Punt37 allows some external device -- such as a phone that can recognize facial gestures, a microcontroller with a physical switch, etc --
 to send a 'force restart' command to the computer.
 
+## Installation
+
+- Download the zip file from releases and unzip where you want the binaries to live (desktop is fine for testing)
+- Start a Command Prompt as Administrator (Windows-X, Command Prompt (Admin) or Windows PowerShell (Admin)
+  - Run 'netsh http add urlacl url="http://+:63737/" user=everyone'
+- To turn on autostart upon login, create a shortcut to Punt37.exe from the folder `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
+- Start `Punt37.exe`
+
 ## Design Specification
 
 For 'traditional' environments, such as business computers on a shared network with proper authentication, remote rebooting is built into Windows (see Shutdown.exe).  However for these cross-platform environments (such as calling from an Android phone), setting up the proper network call (NTLM, RPC, etc.) is a heavy programming burden.  So we're going to punt all that complicated authentication stuff in the name of 'how quickly can we get this working and tested?'
