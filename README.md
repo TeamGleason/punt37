@@ -13,10 +13,7 @@ to send a 'force restart' command to the computer.
 
 ## Design Specification
 
-For 'traditional' environments, such as business computers on a shared network with proper authentication, remote rebooting is built into
-Windows (see Shutdown.exe).  However for these cross-platform environments (such as calling from an Android phone), setting up the proper
-network call (NTLM, RPC, etc.) is a heavy programming burden.  So we're going to punt all that complicated authentication stuff in the name
-of 'how quickly can we get this working and tested?'
+For 'traditional' environments, such as business computers on a shared network with proper authentication, remote rebooting is built into Windows (see Shutdown.exe).  However for these cross-platform environments (such as calling from an Android phone), setting up the proper network call (NTLM, RPC, etc.) is a heavy programming burden.  So we're going to punt all that complicated authentication stuff in the name of 'how quickly can we get this working and tested?'
 
 Instead, this app will:
 
@@ -24,7 +21,7 @@ Instead, this app will:
 - Wait for an HTTP call with custom verb "PUNT37"
 - Force Reboot the computer
 
-A remote app can 
+A remote app can call the equivalent of `curl testcomputer.local:3737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
 
 ### Test environment
 
@@ -37,4 +34,3 @@ A remote app can
 - Add Android sample code for discovering the computer using MDNS
 - Add Android sample code for calling with the custom HTTP verb
 - Consider better DNS-SD support for publishing availability of PUNT37 for discovery
-- Consider adding an HTTP GET (e.g. curl http://testcomputer.local:3737 returns HTTP OK) so a remote device can detect that PUNT37 is running
