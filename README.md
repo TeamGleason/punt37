@@ -17,16 +17,16 @@ For 'traditional' environments, such as business computers on a shared network w
 
 Instead, this app will:
 
-- Listen on port 3737 for incoming HTTP calls
+- Listen on port 63737 for incoming HTTP calls
 - Wait for an HTTP call with custom verb "PUNT37"
 - Force Reboot the computer
 
-A remote app can call the equivalent of `curl testcomputer.local:3737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
+A remote app can call the equivalent of `curl testcomputer.local:63737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
 
 ### Test environment
 
 - Run Punt37.exe on the target computer (e.g. TestComputer)
-- `curl -X PUNT37 testcomputer.local:3737`
+- `curl -X PUNT37 testcomputer.local:63737`
 
 ### Future Features
 
