@@ -31,8 +31,6 @@ namespace Punt37
             notifyIcon.Visible = false;
             Show();
             Activate();
-
-            Reboot.ForceReboot();
         }
     }
 }
