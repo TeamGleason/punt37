@@ -20,19 +20,32 @@ Instead, this app will:
 - Listen on port 63737 for incoming HTTP calls
 - Wait for an HTTP call with custom verb "PUNT37"
 - Force Reboot the computer
+- Return HTTP 200 if the reboot call is successfull, HTTP 500 if it fails for any reason
 
 A remote app can call the equivalent of `curl testcomputer.local:63737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
 
-### Test environment
+### Test Process
 
 - Run Punt37.exe on the target computer (e.g. TestComputer)
-- `curl -X PUNT37 testcomputer.local:63737`
+- ` curl -v testcomputer.local:63737'
+  - Returns 200 if the app is running
+  - Future: Returns 401 if the auth password is incorrect
+- `curl -v -X PUNT37 testcomputer.local:63737`
+  - Returns 200 if the reboot is successful, otherwise 500
+  - Future: Returns 401 if the auth password is incorrect
+- Future: Find the service on the network using DNS-SD
+  - See: https://play.google.com/store/apps/details?id=com.druk.servicebrowser&hl=en_US
+  
+### Features
+
+- Runs as a System Tray icon
 
 ### Future Features
 
-- Implement a System Tray icon rather than a simple command line app that needs to run minimized in the background
 - Add self-registration for auto-start on login
+- Add self-registration for HTTP listening permissions
 - Add Android sample code for calling with the custom HTTP verb
 - Add HTTP basic auth and the ability to choose a password/token must be passed and implement HTTP 401 for GET and PUNT37 verbs.
 - Add Android sample code for discovering the computer using MDNS
 - Consider DNS-SD support for publishing availability of PUNT37 for discovery
+  - See https://github.com/anlam/DnsSDNet
