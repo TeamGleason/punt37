@@ -27,14 +27,15 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 
 - Add HTTP listening permissions by opening Command Prompt as Administrator and running `netsh http add urlacl url="http://+:63737/" user=everyone`
 - Run Punt37.exe on the target computer (e.g. TestComputer)
+- Future: Find the service on the network using DNS-SD
+  - See: https://play.google.com/store/apps/details?id=com.druk.servicebrowser&hl=en_US
+  - look for service name _punt37._tcp.
 - ` curl -v testcomputer.local:63737`
   - Returns 200 if the app is running
   - Future: Returns 401 if the auth password is incorrect
 - `curl -v -X PUNT37 testcomputer.local:63737`
   - Returns 200 if the reboot is successful, otherwise 500
   - Future: Returns 401 if the auth password is incorrect
-- Future: Find the service on the network using DNS-SD
-  - See: https://play.google.com/store/apps/details?id=com.druk.servicebrowser&hl=en_US
   
 ### Features
 
@@ -42,10 +43,8 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 
 ### Future Features
 
+- Add DNS-SD support for publishing availability of PUNT37 for discovery
+  - See https://github.com/anlam/DnsSDNet
 - Add self-registration for auto-start on login
 - Add self-registration for HTTP listening permissions
-- Add Android sample code for calling with the custom HTTP verb
 - Add HTTP basic auth and the ability to choose a password/token must be passed and implement HTTP 401 for GET and PUNT37 verbs.
-- Add Android sample code for discovering the computer using MDNS
-- Consider DNS-SD support for publishing availability of PUNT37 for discovery
-  - See https://github.com/anlam/DnsSDNet
