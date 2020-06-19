@@ -25,6 +25,7 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 
 ### Test Process
 
+- Add HTTP listening permissions by opening Command Prompt as Administrator and running `netsh http add urlacl url="http://+:63737/" user=everyone`
 - Run Punt37.exe on the target computer (e.g. TestComputer)
 - ` curl -v testcomputer.local:63737`
   - Returns 200 if the app is running
