@@ -33,5 +33,5 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 - Add HTTP basic auth and the ability to choose a password/token must be passed
 - Add Android sample code for discovering the computer using MDNS
 - Add Android sample code for calling with the custom HTTP verb
-- Consider better DNS-SD support for publishing availability of PUNT37 for discovery
+- Consider DNS-SD support for publishing availability of PUNT37 for discovery
 - Implement a System Tray icon rather than a simple command line app that needs to run minimized in the background
