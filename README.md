@@ -14,10 +14,11 @@ to send a 'force restart' command to the computer.
 ## Installation
 
 - Download the zip file from releases and unzip where you want the binaries to live (desktop is fine for testing)
-- Start a Command Prompt as Administrator
-  - Windows-X, Command Prompt (Admin) or Windows PowerShell (Admin)
+- Add permissions to listen on the network
+  - Start a Command Prompt as Administrator, Windows-X, Command Prompt (Admin) or Windows PowerShell (Admin)
   - Run `netsh http add urlacl url="http://+:63737/" user=everyone`
-- To turn on autostart upon login, create a shortcut to Punt37.exe from the folder `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
+- To turn on autostart upon login
+  - Create a shortcut to Punt37.exe from the folder `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
 - Start `Punt37.exe`
 
 ## Design Specification
