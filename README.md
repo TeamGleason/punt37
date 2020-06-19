@@ -27,7 +27,7 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 
 - Add HTTP listening permissions by opening Command Prompt as Administrator and running `netsh http add urlacl url="http://+:63737/" user=everyone`
 - Run Punt37.exe on the target computer (e.g. TestComputer)
-Find the service on the network using DNS-SD
+- Find the service on the network using DNS-SD
   - See: https://play.google.com/store/apps/details?id=com.druk.servicebrowser&hl=en_US
   - look for service name _punt37._tcp.
 - ` curl -v testcomputer.local:63737`
