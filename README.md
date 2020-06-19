@@ -1,6 +1,6 @@
 ## Scenario
 
-Punt37 is a Windows app that enables simple remote rebooting of a computer.
+Punt37 is a Windows app that enables cross platform remote rebooting of a computer.
 
 It has been designed to enable a Windows-based speech device to be restarted if something, anything, has gone wrong with the device.
 
