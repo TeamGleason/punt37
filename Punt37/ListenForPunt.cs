@@ -27,17 +27,29 @@ namespace Punt37
             switch (context.Request.HttpMethod.ToUpper())
             {
                 case "PUNT37":
-                    context.Response.StatusCode = 200;
-                    context.Response.StatusDescription = "Rebooting";
+
+                    if (Reboot.ForceReboot())
+                    {
+                        context.Response.StatusCode = 200;
+                        context.Response.StatusDescription = "Rebooting";
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.StatusDescription = "Failure Rebooting";
+                    }
                     context.Response.Close();
-                    Reboot.ForceReboot();
                     break;
+
                 case "GET":
+
                     context.Response.StatusDescription = "Never Punt";
                     context.Response.StatusCode = 200;
                     context.Response.Close();
                     break;
+
                 default:
+
                     context.Response.StatusCode = 404;
                     context.Response.Close();
                     break;

@@ -41,23 +41,31 @@ internal class Reboot
     private const int EWX_POWEROFF = 0x00000008;
     private const int EWX_FORCEIFHUNG = 0x00000010;
 
-    internal static void ForceReboot()
+    internal static bool ForceReboot()
     {
-        ExitWindows(EWX_REBOOT + EWX_FORCE);
+        return ExitWindows(EWX_REBOOT + EWX_FORCE);
     }
 
-    private static void ExitWindows(int flg)
+    private static bool ExitWindows(int flg)
     {
         bool ok;
+
         TokPriv1Luid tp;
         IntPtr hproc = GetCurrentProcess();
         IntPtr htok = IntPtr.Zero;
         ok = OpenProcessToken(hproc, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref htok);
+        if (!ok) return ok;
+        
         tp.Count = 1;
         tp.Luid = 0;
         tp.Attr = SE_PRIVILEGE_ENABLED;
         ok = LookupPrivilegeValue(null, SE_SHUTDOWN_NAME, ref tp.Luid);
+        if (!ok) return ok;
+        
         ok = AdjustTokenPrivileges(htok, false, ref tp, 0, IntPtr.Zero, IntPtr.Zero);
+        if (!ok) return ok;
+        
         ok = ExitWindowsEx(flg, 0);
+        return ok;
     }
 }
