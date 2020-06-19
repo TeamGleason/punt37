@@ -1,5 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Threading.Tasks;
+using Makaretu.Dns;
 
 namespace Punt37
 {
@@ -11,6 +16,20 @@ namespace Punt37
             var listener = new HttpListener();
             listener.Prefixes.Add("http://+:63737/");
             listener.Start();
+
+            var sd = new ServiceDiscovery();
+
+            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.OperationalStatus != OperationalStatus.Up) continue;
+                if (ni.GetIPProperties().GatewayAddresses.Count == 0) continue;
+
+                foreach(var ua in ni.GetIPProperties().UnicastAddresses)
+                {
+                    var service = new ServiceProfile(Environment.MachineName, "_punt37._tcp", 63737, new List<IPAddress> { ua.Address });
+                    sd.Advertise(service);
+                }
+            }
 
             Task.Factory.StartNew(() =>
             {
