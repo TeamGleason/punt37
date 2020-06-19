@@ -20,14 +20,13 @@ Instead, this app will:
 - Listen on port 63737 for incoming HTTP calls
 - Wait for an HTTP call with custom verb "PUNT37"
 - Force Reboot the computer
-- Return HTTP 200 if the reboot call is successfull, HTTP 500 if it fails for any reason
 
 A remote app can call the equivalent of `curl testcomputer.local:63737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
 
 ### Test Process
 
 - Run Punt37.exe on the target computer (e.g. TestComputer)
-- ` curl -v testcomputer.local:63737'
+- ` curl -v testcomputer.local:63737`
   - Returns 200 if the app is running
   - Future: Returns 401 if the auth password is incorrect
 - `curl -v -X PUNT37 testcomputer.local:63737`
