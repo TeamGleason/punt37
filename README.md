@@ -18,7 +18,7 @@ For 'traditional' environments, such as business computers on a shared network w
 Instead, this app will:
 
 - Listen on port 63737 for incoming HTTP calls
-- Wait for an HTTP call with custom verb "PUNT37"
+- Wait for an incoming HTTP call with custom verb "PUNT37" or an HTTP PUT with body "PUNT37"
 - Force Reboot the computer
 
 A remote app can call the equivalent of `curl testcomputer.local:63737` looking for an HTTP OK (e.g. 200) response to confirm that the target computer is running PUNT37 and ready to receive the reboot command.
@@ -34,7 +34,10 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
   - Returns 200 if the app is running
   - Future: Returns 401 if the auth password is incorrect
 - `curl -v -X PUNT37 testcomputer.local:63737`
-  - Returns 200 if the reboot is successful, otherwise 500
+  - Returns 200 if the reboot is successful, 500 if reboot failed
+  - Future: Returns 401 if the auth password is incorrect
+- `curl -v -X PUT -d "PUNT37" testcomputer.local:63737`
+  - Returns 200 if the reboot is successful, 400 if a string other than PUNT37 is sent, 500 if reboot failed
   - Future: Returns 401 if the auth password is incorrect
   
 ### Features

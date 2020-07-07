@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -64,6 +65,30 @@ namespace Punt37
 
                     context.Response.StatusDescription = "Never Punt";
                     context.Response.StatusCode = 200;
+                    context.Response.Close();
+                    break;
+
+                case "PUT":
+
+                    var body = new StreamReader(context.Request.InputStream).ReadToEnd();
+                    if (body.ToUpper() == "PUNT37")
+                    {
+                        if (Reboot.ForceReboot())
+                        {
+                            context.Response.StatusCode = 200;
+                            context.Response.StatusDescription = "Rebooting";
+                        }
+                        else
+                        {
+                            context.Response.StatusCode = 500;
+                            context.Response.StatusDescription = "Failure Rebooting";
+                        }
+                    }
+                    else
+                    {
+                        context.Response.StatusDescription = "Body string not recognized -- Never Punt";
+                        context.Response.StatusCode = 400;
+                    }
                     context.Response.Close();
                     break;
 
