@@ -11,6 +11,16 @@ use to speak or emulate a mouse has stopped working.
 Punt37 allows some external device -- such as a phone that can recognize facial gestures, a microcontroller with a physical switch, etc --
 to send a 'force restart' command to the computer.
 
+## Installation
+
+- Download the zip file from releases and unzip where you want the binaries to live (desktop is fine for testing)
+- Add permissions to listen on the network
+  - Start a Command Prompt as Administrator, Windows-X, Command Prompt (Admin) or Windows PowerShell (Admin)
+  - Run `netsh http add urlacl url="http://+:63737/" user=everyone`
+- To turn on autostart upon login
+  - Create a shortcut to Punt37.exe from the folder `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
+- Start `Punt37.exe`
+
 ## Design Specification
 
 For 'traditional' environments, such as business computers on a shared network with proper authentication, remote rebooting is built into Windows (see Shutdown.exe).  However for these cross-platform environments (such as calling from an Android phone), setting up the proper network call (NTLM, RPC, etc.) is a heavy programming burden.  So we're going to punt all that complicated authentication stuff in the name of 'how quickly can we get this working and tested?'
@@ -27,7 +37,7 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 
 - Add HTTP listening permissions by opening Command Prompt as Administrator and running `netsh http add urlacl url="http://+:63737/" user=everyone`
 - Run Punt37.exe on the target computer (e.g. TestComputer)
-- Future: Find the service on the network using DNS-SD
+- Find the service on the network using DNS-SD
   - See: https://play.google.com/store/apps/details?id=com.druk.servicebrowser&hl=en_US
   - look for service name _punt37._tcp.
 - ` curl -v testcomputer.local:63737`
@@ -43,11 +53,10 @@ A remote app can call the equivalent of `curl testcomputer.local:63737` looking 
 ### Features
 
 - Runs as a System Tray icon
+- Advertises as DNS-SD service _punt37._tcp
 
 ### Future Features
 
-- Add DNS-SD support for publishing availability of PUNT37 for discovery
-  - See https://github.com/anlam/DnsSDNet
 - Add self-registration for auto-start on login
 - Add self-registration for HTTP listening permissions
 - Add HTTP basic auth and the ability to choose a password/token must be passed and implement HTTP 401 for GET and PUNT37 verbs.
