@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -12,10 +13,11 @@ namespace Punt37
     class ListenForPunt
     {
         // Needs netsh http add urlacl url="http://+:63737/" user=everyone
-        public static void Listen()
+        public static void Listen(bool useHttps)
         {
             var listener = new HttpListener();
-            listener.Prefixes.Add("http://+:63737/");
+            string protocol = useHttps ? "https" : "http";
+            listener.Prefixes.Add(protocol + "://+:63737/");
             listener.Start();
 
             var sd = new ServiceDiscovery();
@@ -27,7 +29,11 @@ namespace Punt37
 
                 foreach(var ua in ni.GetIPProperties().UnicastAddresses)
                 {
-                    var service = new ServiceProfile(Environment.MachineName, "_punt37._tcp", 63737, new List<IPAddress> { ua.Address });
+                    var service = new ServiceProfile(
+                        Environment.MachineName,
+                        "_punt37._tcp",
+                        63737,
+                        new List<IPAddress> { ua.Address });
                     sd.Advertise(service);
                 }
             }
@@ -69,7 +75,6 @@ namespace Punt37
                     break;
 
                 case "PUT":
-
                     var body = new StreamReader(context.Request.InputStream).ReadToEnd();
                     if (body.ToUpper() == "PUNT37")
                     {
