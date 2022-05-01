@@ -12,11 +12,26 @@ namespace Punt37
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+
+            bool useHttps = parseArgs(args);
+            Application.Run(new Main(useHttps));
+        }
+
+        static bool parseArgs(string[] args)
+        {
+            bool useHttps = false;
+            foreach (string arg in args)
+            {
+                if (arg == "--https")
+                {
+                    useHttps = true;
+                }
+            }
+            return useHttps;
         }
     }
 }

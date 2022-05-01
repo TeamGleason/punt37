@@ -5,9 +5,12 @@ namespace Punt37
 {
     public partial class Main : Form
     {
-        public Main()
+        private bool useHttps;
+
+        public Main(bool useHttps)
         {
             InitializeComponent();
+            this.useHttps = useHttps;
 
             this.Resize += Main_Resize;
         }
@@ -23,7 +26,7 @@ namespace Punt37
 
         private void Main_Load(object sender, EventArgs e)
         {
-            ListenForPunt.Listen();
+            ListenForPunt.Listen(this.useHttps);
         }
 
         private void notifyIcon_Click(object sender, EventArgs e)
